@@ -49,6 +49,11 @@ public class PageAnalyticsModule implements RamaModule {
             pageVisit.put("duration", 4200);
 
             depot.append(pageVisit);
+
+            PState pageViewCountPstate = cluster.clusterPState(moduleName, "$$pageViewCount");
+            PState sessionHistoryPstate = cluster.clusterPState(moduleName, "$$sessionHistory");
+            System.out.println("Page views count for /posts: " + pageViewCountPstate.selectOne(Path.key("/posts")));
+            System.out.println("Session History for abc123: " + sessionHistoryPstate.selectOne(Path.key("abc123")));
         }
     }
 }
